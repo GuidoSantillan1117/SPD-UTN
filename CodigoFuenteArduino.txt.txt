@@ -1,0 +1,145 @@
+//Segundo Parcial "Estaciones y Alarma Anti-incendios"
+//Guido Santillan DIV D
+
+#include <LiquidCrystal.h>
+#include <IRremote.h>
+#include <Servo.h>
+
+#define BOTON_APAGADO 0xFF00BF00
+#define IR 11
+#define LED_ROJO 7 
+#define LED_VERDE 6
+#define BUZZER 3
+
+//LCD
+LiquidCrystal lcd(5, 4, 8, 10, 12, 13);
+
+//SERVO
+Servo myServo;
+
+//SENSOR
+int lecturaSensor;
+float temperatura;
+bool sistemaActivado = false;
+bool lcdEncendido = true;
+
+// Declaración de las funciones
+void prenderLed(int led); // Enciende el LED especificado.
+void apagarLed(int led); // Apaga el LED especificado.
+void controlRemoto(); // Controla el sistema utilizando un control remoto IR
+void mostrarTemperaturaEstacion(); // Muestra la temperatura actual y la estación correspondiente en el LCD.
+void simularIncendio(); // Simula una respuesta del sistema de incendio
+
+void setup() {
+  
+  //LCD
+  lcd.begin(16, 2);
+  
+  // CONTROL REMOTO
+  IrReceiver.begin(IR, DISABLE_LED_FEEDBACK);
+
+  //SERVO
+  myServo.attach(9, 500, 2500);
+  
+  //LEDS
+  pinMode(LED_ROJO, OUTPUT);
+  pinMode(LED_VERDE, OUTPUT);
+  
+  //BUZZER
+  pinMode(BUZZER, OUTPUT);
+  
+  //MONITOR EN SERIE
+  Serial.begin(9600);
+}
+
+void loop() {
+  controlRemoto();
+  
+  if (sistemaActivado) 
+  {
+    mostrarTemperaturaEstacion();
+    simularIncendio(); 
+  } 
+  else 
+  {
+    apagarLed(LED_ROJO);
+    apagarLed(LED_VERDE); 
+  }
+
+  lcd.display(); // Muestra el contenido del LCD.
+}
+
+void prenderLed(int led) {
+  digitalWrite(led, HIGH); // Enciende el LED especificado.
+}
+
+void apagarLed(int led) {
+  digitalWrite(led, LOW); // Apaga el LED especificado.
+}
+
+void controlRemoto() {
+  if (IrReceiver.decode())
+  {   
+    if (IrReceiver.decodedIRData.decodedRawData == BOTON_APAGADO) {
+      sistemaActivado = !sistemaActivado; // Cambia el estado del sistema (Activado/Desactivado).
+      lcdEncendido = sistemaActivado; // Actualiza el estado del LCD según el estado del sistema.
+    }  
+    IrReceiver.resume(); // Preparación para recibir un nuevo código del control remoto.
+  }
+  if (lcdEncendido) {
+    lcd.display(); // Enciende el LCD si el estado es verdadero.
+  } else {
+    lcd.noDisplay(); // Apaga el LCD si el estado es falso.
+  }
+  delay(100);
+}
+
+
+void mostrarTemperaturaEstacion() {
+  lecturaSensor = analogRead(A0);
+  temperatura = map(lecturaSensor, 20, 358, -10, 100);
+  
+  lcd.setCursor(0, 0);
+  lcd.print(temperatura);
+  lcd.print(" Grados ");
+  delay(100);
+  
+  lcd.setCursor(0, 1);
+  
+  if (temperatura > -10 && temperatura < 12) {
+    lcd.print("INVIERNO   "); // Muestra en el LCD la estación correspondiente (Invierno) y enciende el LED verde.
+    prenderLed(LED_VERDE);
+  }
+  else if (temperatura > 13 && temperatura < 18) {
+    lcd.print("OTONIO     "); // Muestra en el LCD la estación correspondiente (Otoño) y enciende el LED verde.
+    prenderLed(LED_VERDE);
+  }
+  else if (temperatura > 19 && temperatura < 26) {
+    lcd.print("PRIMAVERA  "); // Muestra en el LCD la estación correspondiente (Primavera) y enciende el LED verde.
+    prenderLed(LED_VERDE);
+  }
+  else if (temperatura > 27 && temperatura < 59) {
+    lcd.print("VERANO     "); // Muestra en el LCD la estación correspondiente (Verano) y enciende el LED verde.
+    prenderLed(LED_VERDE);
+  }
+  else if (temperatura > 60 && temperatura < 100) {
+    lcd.print("FUEGO!!!      "); // Muestra en el LCD "FUEGO" y apaga el LED verde para indicar un incendio.
+    apagarLed(LED_VERDE);
+  }
+}
+
+void simularIncendio()
+{
+  if (temperatura > 60) 
+  {
+    myServo.write(0);
+    apagarLed(LED_VERDE);
+    prenderLed(LED_ROJO); // Enciende el LED rojo para indicar peligro.
+    //tone(BUZZER, 1000); // Activa el buzzer con una frecuencia de 1000Hz.
+    delay(500);
+    myServo.write(180); // Gira el servo a 180 grados para simular una respuesta al incendio.
+    apagarLed(LED_ROJO); 
+    //noTone(BUZZER); // Detiene el tono del buzzer.
+    delay(500);
+  }
+}
