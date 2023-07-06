@@ -9,14 +9,6 @@ Guido Santillán
 https://www.tinkercad.com/things/e5RfPeHnbFD-segundo-parcial-parte-domiciliaria-guido-santillan-div-d/editel?sharecode=BY7cw4XETulfK1eznTsinehnxqVYt3AdofY474UHUu0
 
 ## Descripción del Proyecto
-
-# Segundo Parcial "Estaciones y Alarma Anti-incendios"
-![Estaciones y Alarma Anti-incendios](inserta_la_url_de_la_imagen_aqui)
-
-## Integrantes
-Guido Santillan (DIV D)
-
-## Descripción del Proyecto
 El siguiente código implementa un sistema de estaciones y alarma anti-incendios utilizando un Arduino. El proyecto utiliza un LCD, un control remoto IR, un servo motor y un sensor de temperatura para mostrar la temperatura actual y la estación correspondiente en el LCD, y simular una respuesta al incendio.
 
 ## Código y Funcionamiento
