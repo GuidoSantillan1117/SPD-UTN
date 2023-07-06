@@ -20,10 +20,6 @@ El código implementa las siguientes funciones:
 - `mostrarTemperaturaEstacion()`: Muestra la temperatura actual y la estación correspondiente en el LCD.
 - `simularIncendio()`: Simula una respuesta del sistema de incendio.
 
-En el `setup()`, se inicializan los componentes y pines necesarios, como el LCD, el control remoto, el servo motor y los LEDS.
-
-En el `loop()`, se llama a la función `controlRemoto()` para controlar el sistema utilizando el control remoto IR. Si el sistema está activado, se llama a las funciones `mostrarTemperaturaEstacion()` y `simularIncendio()`.
-
 La función `mostrarTemperaturaEstacion()` lee la temperatura del sensor y la muestra en el LCD. Además, determina la estación correspondiente y enciende el LED verde según la temperatura.
 
 La función `simularIncendio()` verifica si la temperatura supera un umbral y simula una respuesta al incendio mediante el servo motor y los LEDS.
