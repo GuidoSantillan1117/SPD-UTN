@@ -20,9 +20,9 @@ El código implementa las siguientes funciones:
 - `mostrarTemperaturaEstacion()`: Muestra la temperatura actual y la estación correspondiente en el LCD.
 - `simularIncendio()`: Simula una respuesta del sistema de incendio.
 
-La función `mostrarTemperaturaEstacion()` lee la temperatura del sensor y la muestra en el LCD. Además, determina la estación correspondiente y enciende el LED verde según la temperatura.
+La función `mostrarTemperaturaEstacion()` lee la temperatura del sensor y la muestra en el LCD. Además, determina la estación correspondiente y enciende el LED verde si todo se encuentra en orden.
 
-La función `simularIncendio()` verifica si la temperatura supera un umbral y simula una respuesta al incendio mediante el servo motor y los LEDS.
+La función `simularIncendio()` verifica si la temperatura superior a 60 grados y simula una respuesta al incendio mediante el servo motor y el led rojo que empieza a titiliar.
 
 ## Configuración de los pines
 
@@ -30,7 +30,7 @@ La función `simularIncendio()` verifica si la temperatura supera un umbral y si
 - Servo: Se utiliza el pin 9 para controlar el servo motor.
 - LEDS: Se utilizan los pines 7 y 6 para los LEDS rojo y verde respectivamente.
 - Buzzer: Se utiliza el pin 3 para el buzzer.
-- Control Remoto: Se utiliza el pin 11 para la comunicación con el control remoto IR.
+- Control Remoto: Se utiliza el pin 11 para conectar el sensor IR con el control remoto.
 
 ## Variables
 
