@@ -1,7 +1,6 @@
 # Examen Practico Arduino - Estaciones y Alarma Anti-incendios
 ![Segundo Parcial  Parte Domiciliaria _ Guido Santillan DIV D](https://github.com/GuidoSantillan1117/SPD-UTN/assets/137585994/d0235458-763d-48c2-9b70-2ea65c02ca34)
 
-
 ## Integrantes
 Guido Santillán
 
@@ -22,13 +21,13 @@ El código implementa las siguientes funciones:
 
 La función `mostrarTemperaturaEstacion()` lee la temperatura del sensor y la muestra en el LCD. Además, determina la estación correspondiente y enciende el LED verde si todo se encuentra en orden.
 
-La función `simularIncendio()` verifica si la temperatura superior a 60 grados y simula una respuesta al incendio mediante el servo motor y el led rojo que empieza a titiliar.
+La función `simularIncendio()` verifica si la temperatura es superior a 60 grados y simula una respuesta al incendio mediante el servo motor y el led rojo que empieza a titilar.
 
 ## Configuración de los pines
 
 - LCD: Se configuran los pines 5, 4, 8, 10, 12 y 13 como los pines del LCD.
 - Servo: Se utiliza el pin 9 para controlar el servo motor.
-- LEDS: Se utilizan los pines 7 y 6 para los LEDS rojo y verde respectivamente.
+- LEDS: Se utilizan los pines 7 y 6 para los LEDS rojo y verde, respectivamente.
 - Buzzer: Se utiliza el pin 3 para el buzzer.
 - Control Remoto: Se utiliza el pin 11 para conectar el sensor IR con el control remoto.
 
@@ -38,4 +37,7 @@ La función `simularIncendio()` verifica si la temperatura superior a 60 grados 
 - `temperatura`: Almacena el valor de temperatura calculado a partir de la lectura del sensor.
 - `sistemaActivado`: Indica si el sistema está activado o desactivado.
 - `lcdEncendido`: Indica si el LCD está encendido o apagado.
+- `alertaFuego`: Indica si se ha detectado una alerta de fuego.
+
+
 
