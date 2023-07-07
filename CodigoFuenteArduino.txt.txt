@@ -1,3 +1,6 @@
+//Proyecto Arduino Estaciones y Alarma Anti-Incendios
+//Guido Santillan DIV D 43874896
+
 #include <LiquidCrystal.h>
 #include <IRremote.h>
 #include <Servo.h>
@@ -138,11 +141,11 @@ void mostrarTemperaturaEstacion() {
   } else {
     switch (estacion) {
       case 0:
-        lcd.print("Invierno     "); // Muestra en el LCD la estación correspondiente (Invierno) y enciende el LED verde.
+        lcd.print("Verano     "); // Muestra en el LCD la estación correspondiente (Invierno) y enciende el LED verde.
         prenderLed(LED_VERDE);
         break;
       case 1:
-        lcd.print("Otonio      "); // Muestra en el LCD la estación correspondiente (Otoño) y enciende el LED verde.
+        lcd.print("Invierno      "); // Muestra en el LCD la estación correspondiente (Otoño) y enciende el LED verde.
         prenderLed(LED_VERDE);
         break;
       case 2:
@@ -150,7 +153,7 @@ void mostrarTemperaturaEstacion() {
         prenderLed(LED_VERDE);
         break;
       case 3:
-        lcd.print("Verano     "); // Muestra en el LCD la estación correspondiente (Verano) y enciende el LED verde.
+        lcd.print("Otonio        "); // Muestra en el LCD la estación correspondiente (Verano) y enciende el LED verde.
         prenderLed(LED_VERDE);
         break;
     }
@@ -174,3 +177,4 @@ void simularIncendio() {
     alertaFuego = false; // Restablece la alerta de fuego como falsa
   }
 }
+
